@@ -985,7 +985,7 @@ export const GameScreen = ({
               </div>
             )}
 
-            {!isMyTurn &&
+            {!isMyTurn && localPlayer &&
               [...BETTING_PHASES, Phase.Ante, Phase.Draw].includes(phase) && (
                 <p className="text-zinc-600 text-xs uppercase tracking-widest mt-2 md:mb-2 py-1.75">
                   Waiting for other players...
@@ -993,9 +993,9 @@ export const GameScreen = ({
               )}
 
             {!localPlayer && (
-              <p className="text-zinc-500 text-lg font-bold uppercase tracking-widest mt-1 flex items-center gap-2">
+              <p className="text-zinc-500 text-lg font-bold flex items-center gap-2">
                 <Eye className="w-5 h-5" />
-                Watching game
+                Watching
               </p>
             )}
 
