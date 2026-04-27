@@ -720,11 +720,6 @@ pub fn GameScreen(
                                                     if can_check { "Bet" } else { "Raise" }
                                                 }
                                             }
-                                            button {
-                                                class: "px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-bold text-sm uppercase tracking-wider",
-                                                onclick: move |_| send("PASS".to_string()),
-                                                "Pass"
-                                            }
                                         }
                                     },
 

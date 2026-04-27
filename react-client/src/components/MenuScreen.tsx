@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   Play,
-  ScrollText,
+  BookText,
   BarChart3,
   History,
   Download,
@@ -58,7 +58,7 @@ const formatDatetime = (input: string): string => {
 
 const menuItems = [
   { id: "play", label: "Play Game", icon: Play },
-  { id: "rules", label: "Rules", icon: ScrollText },
+  { id: "rules", label: "Rules", icon: BookText },
   { id: "stats", label: "Statistics", icon: BarChart3 },
   { id: "results", label: "Results", icon: History },
   { id: "deposit", label: "Deposit", icon: Download },
@@ -934,7 +934,7 @@ export const MenuScreen = ({
 
       {/* Game Ended Modal */}
       <Dialog open={showGameEndedModal} onOpenChange={setShowGameEndedModal}>
-        <DialogContent>
+        <DialogContent className="w-[90vw] max-w-sm sm:max-w-md p-4 sm:p-6 rounded-xl">
           <DialogHeader>
             <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-red-500" />

@@ -168,7 +168,6 @@ pub enum Action {
     Draw(Vec<usize>),
     Continue,
     Leave,
-    Pass,
     DealerChoice(GameMode),
 }
 
@@ -181,7 +180,6 @@ pub fn parse_action(s: &str) -> Option<Action> {
         ["CALL"] => Some(Action::Call),
         ["CONTINUE"] => Some(Action::Continue),
         ["LEAVE"] => Some(Action::Leave),
-        ["PASS"] => Some(Action::Pass),
         ["BET", v] => v.parse().ok().map(Action::Bet),
         ["RAISE", v] => v.parse().ok().map(Action::Raise),
         ["DRAW"] => Some(Action::Draw(vec![])),
@@ -692,9 +690,9 @@ async fn run_betting_round(
         let can_check = to_call == 0;
 
         let valid: &[&str] = if can_check {
-            &["CHECK", "FOLD", "BET", "LEAVE", "PASS"]
+            &["CHECK", "FOLD", "BET", "LEAVE"]
         } else {
-            &["CALL", "FOLD", "RAISE", "LEAVE", "PASS"]
+            &["CALL", "FOLD", "RAISE", "LEAVE"]
         };
 
         let state = build_state(
@@ -753,7 +751,7 @@ async fn run_betting_round(
                 players[turn_idx].game.folded_this_hand = true;
                 format!("{} folds", active_name)
             }
-            Action::Check | Action::Pass => format!("{} checks", active_name),
+            Action::Check => format!("{} checks", active_name),
             Action::Call => {
                 let cost = to_call.min(players[turn_idx].game.balance);
                 players[turn_idx].game.balance -= cost;
@@ -1467,7 +1465,7 @@ async fn run_holdem_hand(
     }
 
     let utg = (bb_idx + 1) % n;
-    ctx.last_msg = "Hole cards dealt — pre-flop betting".to_string();
+    ctx.last_msg = "Hole cards dealt - pre-flop betting".to_string();
 
     let early = run_betting_round(
         players,
