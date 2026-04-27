@@ -39,7 +39,7 @@ interface MenuScreenProps {
   setServerMessages: Dispatch<SetStateAction<string[]>>;
   setScreen: (screen: Screen) => void;
   username: string;
-  setUsername: (username: string) => void;
+  onLogout: () => void;
 }
 
 const formatDatetime = (input: string): string => {
@@ -71,7 +71,7 @@ export const MenuScreen = ({
   setServerMessages,
   setScreen,
   username,
-  setUsername,
+  onLogout,
 }: MenuScreenProps) => {
   const [activePanel, setActivePanel] = useState("play");
   const [responseMsg, setResponseMsg] = useState("");
@@ -197,9 +197,6 @@ export const MenuScreen = ({
             })
             .filter((r): r is [string, string, string, number] => r !== null);
           setResultsRows(rows);
-        } else if (panel === "logout") {
-          setUsername("");
-          setScreen("LoginScreen");
         } else {
           setResponseMsg(body);
         }
@@ -348,9 +345,9 @@ export const MenuScreen = ({
           <button
             className="w-full flex items-center gap-3 px-3 md:px-4 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-all cursor-pointer"
             onClick={() => {
-              setActivePanel("logout");
-              setSidebarOpen(false);
               send("LOGOUT");
+              setSidebarOpen(false);
+              onLogout();
             }}
           >
             <LogOut className="w-4 h-4" />
@@ -698,7 +695,9 @@ export const MenuScreen = ({
                                 ([name, bal, rounds, wins, folds], i) => (
                                   <tr
                                     key={name}
-                                    className={`border-b border-zinc-800/50 ${i % 2 === 1 ? "bg-zinc-800/20" : ""}`}
+                                    className={`border-b border-zinc-800/50 ${
+                                      i % 2 === 1 ? "bg-zinc-800/20" : ""
+                                    }`}
                                   >
                                     <td className="px-6 py-4 text-zinc-200 font-medium">
                                       {name}

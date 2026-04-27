@@ -10,11 +10,14 @@ function App() {
   const [username, setUsername] = useState('');
   const serverUrl = import.meta.env.VITE_SERVER_URL || 'ws://127.0.0.1:7878';
   const [serverMessages, setServerMessages] = useState<string[]>([]);
+  const [wsKey, setWsKey] = useState(0);
 
   const wsRef = useRef<WebSocket | null>(null);
   const messageQueueRef = useRef<string[]>([]);
 
   useEffect(() => {
+    messageQueueRef.current = [];
+
     const ws = new WebSocket(serverUrl);
     wsRef.current = ws;
 
@@ -41,9 +44,8 @@ function App() {
     return () => {
       ws.close();
     };
-  }, []);
+  }, [wsKey]);
 
-  // Stable send function - never changes reference
   const send = useCallback((message: string) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(message);
@@ -53,12 +55,17 @@ function App() {
   }, []);
 
   const wsHandle = useRef({ send }).current;
-  // Keep wsHandle.send up to date without recreating the object
   wsHandle.send = send;
 
-  // Stable clearMessages - never changes reference
   const clearMessages = useCallback(() => {
     setServerMessages([]);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    setUsername('');
+    setServerMessages([]);
+    setWsKey((k) => k + 1);
+    setScreen('LoginScreen');
   }, []);
 
   return (
@@ -80,7 +87,7 @@ function App() {
           setServerMessages={setServerMessages}
           setScreen={setScreen}
           username={username}
-          setUsername={setUsername}
+          onLogout={handleLogout}
         />
       )}
       {screen === 'GameScreen' && (
