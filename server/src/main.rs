@@ -494,19 +494,38 @@ impl ClientSession {
                         let db = self.db.clone();
                         let config = self.config.lock().await.clone();
                         let gip = self.game_in_progress.clone();
+                        let broadcast_senders = self.broadcast_senders.clone();
 
                         tokio::spawn(async move {
                             run_game(game_players, action_rx, config, db).await;
                             *gip.lock().await = false;
                             let remaining_players = take_final_player_senders().await;
                             let viewers = viewer_senders().lock().await;
-                            for tx in &remaining_players {
-                                let _ = tx.send("GAME_ENDED".to_string());
-                            }
+
+                            let mut targets: Vec<ClientSender> = remaining_players;
                             for tx in viewers.iter() {
-                                let _ = tx.send("GAME_ENDED".to_string());
+                                if !targets.iter().any(|existing| existing.same_channel(tx)) {
+                                    targets.push(tx.clone());
+                                }
                             }
                             drop(viewers);
+
+                            {
+                                let senders = broadcast_senders.lock().await;
+                                for entry in senders.iter() {
+                                    if entry.username.is_some()
+                                        && !targets
+                                            .iter()
+                                            .any(|existing| existing.same_channel(&entry.tx))
+                                    {
+                                        targets.push(entry.tx.clone());
+                                    }
+                                }
+                            }
+
+                            for tx in &targets {
+                                let _ = tx.send("GAME_ENDED".to_string());
+                            }
                             clear_viewers().await;
                         });
                     }
