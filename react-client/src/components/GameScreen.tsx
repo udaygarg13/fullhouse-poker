@@ -27,30 +27,70 @@ interface GameScreenProps {
 }
 
 const RANK_LABEL_MAP: Record<Rank, string> = {
-  Two: "2", Three: "3", Four: "4", Five: "5", Six: "6", Seven: "7",
-  Eight: "8", Nine: "9", Ten: "10", Jack: "J", Queen: "Q", King: "K", Ace: "A",
+  Two: "2",
+  Three: "3",
+  Four: "4",
+  Five: "5",
+  Six: "6",
+  Seven: "7",
+  Eight: "8",
+  Nine: "9",
+  Ten: "10",
+  Jack: "J",
+  Queen: "Q",
+  King: "K",
+  Ace: "A",
 };
 
 const SUIT_SYMBOL_MAP: Record<Suit, string> = {
-  Spades: "\u2660", Hearts: "\u2665", Diamonds: "\u2666", Clubs: "\u2663",
+  Spades: "\u2660",
+  Hearts: "\u2665",
+  Diamonds: "\u2666",
+  Clubs: "\u2663",
 };
 
 const RANK_SORT_MAP: Record<Rank, number> = {
-  Two: 2, Three: 3, Four: 4, Five: 5, Six: 6, Seven: 7, Eight: 8,
-  Nine: 9, Ten: 10, Jack: 11, Queen: 12, King: 13, Ace: 14,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+  Eight: 8,
+  Nine: 9,
+  Ten: 10,
+  Jack: 11,
+  Queen: 12,
+  King: 13,
+  Ace: 14,
 };
 
 const SUIT_SORT_MAP: Record<Suit, number> = {
-  Spades: 0, Hearts: 1, Diamonds: 2, Clubs: 3,
+  Spades: 0,
+  Hearts: 1,
+  Diamonds: 2,
+  Clubs: 3,
 };
 
 const PHASE_LABEL_MAP: Record<Phase, string> = {
-  Ante: "Ante", Showdown: "Showdown", RoundOver: "Round Over",
-  GameOver: "Game Over", DealerChoice: "Dealer's Choice",
-  FirstBetting: "1st Bet", Draw: "Draw", SecondBetting: "2nd Bet",
-  SmallBlind: "Small Blind", BigBlind: "Big Blind", PreFlop: "Pre-Flop",
-  Flop: "Flop", Turn: "Turn", River: "River", ThirdStreet: "3rd St",
-  FourthStreet: "4th St", FifthStreet: "5th St", SixthStreet: "6th St",
+  Ante: "Ante",
+  Showdown: "Showdown",
+  RoundOver: "Round Over",
+  GameOver: "Game Over",
+  DealerChoice: "Dealer's Choice",
+  FirstBetting: "1st Bet",
+  Draw: "Draw",
+  SecondBetting: "2nd Bet",
+  SmallBlind: "Small Blind",
+  BigBlind: "Big Blind",
+  PreFlop: "Pre-Flop",
+  Flop: "Flop",
+  Turn: "Turn",
+  River: "River",
+  ThirdStreet: "3rd St",
+  FourthStreet: "4th St",
+  FifthStreet: "5th St",
+  SixthStreet: "6th St",
   SeventhStreet: "7th St",
 };
 
@@ -61,21 +101,40 @@ const GAME_MODE_LABEL_MAP: Record<GameMode, string> = {
 };
 
 const ACTIVE_PHASES: Phase[] = [
-  Phase.Ante, Phase.FirstBetting, Phase.SecondBetting, Phase.Draw,
-  Phase.PreFlop, Phase.Flop, Phase.Turn, Phase.River, Phase.ThirdStreet,
-  Phase.FourthStreet, Phase.FifthStreet, Phase.SixthStreet, Phase.SeventhStreet,
+  Phase.Ante,
+  Phase.FirstBetting,
+  Phase.SecondBetting,
+  Phase.Draw,
+  Phase.PreFlop,
+  Phase.Flop,
+  Phase.Turn,
+  Phase.River,
+  Phase.ThirdStreet,
+  Phase.FourthStreet,
+  Phase.FifthStreet,
+  Phase.SixthStreet,
+  Phase.SeventhStreet,
   Phase.DealerChoice,
 ];
 
 const BETTING_PHASES: Phase[] = [
-  Phase.FirstBetting, Phase.SecondBetting, Phase.PreFlop, Phase.Flop,
-  Phase.Turn, Phase.River, Phase.ThirdStreet, Phase.FourthStreet,
-  Phase.FifthStreet, Phase.SixthStreet, Phase.SeventhStreet,
+  Phase.FirstBetting,
+  Phase.SecondBetting,
+  Phase.PreFlop,
+  Phase.Flop,
+  Phase.Turn,
+  Phase.River,
+  Phase.ThirdStreet,
+  Phase.FourthStreet,
+  Phase.FifthStreet,
+  Phase.SixthStreet,
+  Phase.SeventhStreet,
 ];
 
 const rankLabel = (rank: Rank): string => RANK_LABEL_MAP[rank];
 const suitSymbol = (suit: Suit): string => SUIT_SYMBOL_MAP[suit];
-const suitIsRed = (suit: Suit): boolean => suit === Suit.Hearts || suit === Suit.Diamonds;
+const suitIsRed = (suit: Suit): boolean =>
+  suit === Suit.Hearts || suit === Suit.Diamonds;
 const phaseLabel = (phase: Phase): string => PHASE_LABEL_MAP[phase];
 const gameModeLabel = (mode: GameMode): string => GAME_MODE_LABEL_MAP[mode];
 
@@ -161,7 +220,11 @@ const PlayingCard = ({
       <span
         className={cn(
           "leading-none",
-          size === "compact" ? "text-[10px]" : size === "tiny" ? "text-sm" : "text-base",
+          size === "compact"
+            ? "text-[10px]"
+            : size === "tiny"
+              ? "text-sm"
+              : "text-base",
           isRed ? "text-red-600" : "text-zinc-900",
         )}
       >
@@ -266,7 +329,12 @@ const renderPlayerCards = (
     );
   }
 
-  if (phase === Phase.Ante || player.folded || player.left || (shouldShow && !hasCards)) {
+  if (
+    phase === Phase.Ante ||
+    player.folded ||
+    player.left ||
+    (shouldShow && !hasCards)
+  ) {
     return noCardsEl;
   }
 
@@ -312,7 +380,15 @@ const renderPlayerCards = (
   );
 };
 
-const PlayerBadge = ({ player, idx, me, game, phase, gameMode, isStud }: PlayerBadgeProps) => {
+const PlayerBadge = ({
+  player,
+  idx,
+  me,
+  game,
+  phase,
+  gameMode,
+  isStud,
+}: PlayerBadgeProps) => {
   const isMe = player.name === me;
   const isActiveTurn =
     game.active_player_idx === idx &&
@@ -332,7 +408,9 @@ const PlayerBadge = ({ player, idx, me, game, phase, gameMode, isStud }: PlayerB
   const containerCls = cn(
     "flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all shrink-0 min-w-[145px]",
     (player.folded || player.left) && "opacity-50",
-    isMe && isActiveTurn && "border-green-500 bg-zinc-900 ring-2 ring-green-500/30",
+    isMe &&
+      isActiveTurn &&
+      "border-green-500 bg-zinc-900 ring-2 ring-green-500/30",
     isMe && !isActiveTurn && "border-green-800 bg-zinc-900",
     !isMe && isActiveTurn && "border-indigo-600 bg-zinc-900",
     !isMe && !isActiveTurn && "border-zinc-800 bg-zinc-900",
@@ -341,7 +419,12 @@ const PlayerBadge = ({ player, idx, me, game, phase, gameMode, isStud }: PlayerB
   return (
     <div className={containerCls}>
       <div className="flex items-center gap-1.5 flex-wrap justify-center">
-        <span className={cn("font-semibold text-sm", isMe ? "text-green-300" : "text-zinc-200")}>
+        <span
+          className={cn(
+            "font-semibold text-sm",
+            isMe ? "text-green-300" : "text-zinc-200",
+          )}
+        >
           {player.name}
         </span>
         {isMe && (
@@ -365,10 +448,14 @@ const PlayerBadge = ({ player, idx, me, game, phase, gameMode, isStud }: PlayerB
           </span>
         )}
         {player.folded && (
-          <span className="text-xs bg-red-900 text-red-300 px-1.5 py-0.5 rounded">F</span>
+          <span className="text-xs bg-red-900 text-red-300 px-1.5 py-0.5 rounded">
+            F
+          </span>
         )}
         {player.left && (
-          <span className="text-xs bg-red-900 text-red-300 px-1.5 py-0.5 rounded">L</span>
+          <span className="text-xs bg-red-900 text-red-300 px-1.5 py-0.5 rounded">
+            L
+          </span>
         )}
       </div>
       <div className="flex gap-1 min-h-[56px] items-center justify-center flex-wrap">
@@ -396,7 +483,9 @@ export const GameScreen = ({
   const [raiseInput, setRaiseInput] = useState("");
   const [status, setStatus] = useState("Waiting for server...");
   const [continued, setContinued] = useState(false);
-  const [roundOverSecs, setRoundOverSecs] = useState<number | undefined>(undefined);
+  const [roundOverSecs, setRoundOverSecs] = useState<number | undefined>(
+    undefined,
+  );
   const [mobilePlayerIdx, setMobilePlayerIdx] = useState(0);
 
   const roundOverInitialSecs = useRef<number>(60);
@@ -420,8 +509,14 @@ export const GameScreen = ({
     for (let i = 0; i < serverMessages.length; i++) {
       const msg = serverMessages[i];
       if (msg.trim() === "GAME_START") continue;
-      if (msg.trim() === "GAME_ENDED") { transitionIndex = i; break; }
-      if (msg.startsWith("GAME_LEFT")) { transitionIndex = i; break; }
+      if (msg.trim() === "GAME_ENDED") {
+        transitionIndex = i;
+        break;
+      }
+      if (msg.startsWith("GAME_LEFT")) {
+        transitionIndex = i;
+        break;
+      }
       if (msg.startsWith("GAME_STATE ")) {
         const rest = msg.trim().slice("GAME_STATE ".length);
         try {
@@ -456,10 +551,14 @@ export const GameScreen = ({
     }
 
     if (transitionIndex >= 0) {
-      setServerMessages((prev) => prev.slice(Math.min(transitionIndex, prev.length)));
+      setServerMessages((prev) =>
+        prev.slice(Math.min(transitionIndex, prev.length)),
+      );
       setScreen("MenuScreen");
     } else {
-      setServerMessages((prev) => prev.slice(Math.min(snapshotLength, prev.length)));
+      setServerMessages((prev) =>
+        prev.slice(Math.min(snapshotLength, prev.length)),
+      );
     }
   }, [serverMessages, setServerMessages]);
 
@@ -480,7 +579,9 @@ export const GameScreen = ({
     ACTIVE_PHASES.includes(phase)
   );
   const isDealer = game?.dealer_idx === localIdx;
-  const toCall = game ? game.current_bet - (game.players[localIdx]?.bet ?? 0) : 0;
+  const toCall = game
+    ? game.current_bet - (game.players[localIdx]?.bet ?? 0)
+    : 0;
 
   const handleLeave = () => {
     if (localPlayer) send("LEAVE");
@@ -491,7 +592,11 @@ export const GameScreen = ({
   const localHandCards = (() => {
     const cards = localPlayer?.cards;
     if (!cards || cards.length === 0) return [];
-    return cards.map((card, originalIdx) => ({ card, originalIdx, isFaceUp: true }));
+    return cards.map((card, originalIdx) => ({
+      card,
+      originalIdx,
+      isFaceUp: true,
+    }));
   })();
 
   return (
@@ -504,7 +609,9 @@ export const GameScreen = ({
                 {gameModeLabel(game.game_mode)}
               </span>
             )}
-            <span className="text-zinc-200 text-sm font-semibold">{phaseLabel(phase)}</span>
+            <span className="text-zinc-200 text-sm font-semibold">
+              {phaseLabel(phase)}
+            </span>
           </div>
           <div className="flex items-center justify-center gap-6">
             <div className="text-zinc-200 font-semibold text-sm">{status}</div>
@@ -531,17 +638,23 @@ export const GameScreen = ({
                 {gameModeLabel(game.game_mode)}
               </span>
             )}
-            <span className="text-zinc-200 text-sm font-semibold">{phaseLabel(phase)}</span>
+            <span className="text-zinc-200 text-sm font-semibold">
+              {phaseLabel(phase)}
+            </span>
           </div>
           <div className="h-5 flex items-center justify-center">
-            <span className="text-zinc-200 text-sm font-semibold truncate text-center">{status}</span>
+            <span className="text-zinc-200 text-sm font-semibold truncate text-center">
+              {status}
+            </span>
           </div>
         </div>
       </header>
 
       {phase === Phase.DealerChoice ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-3 p-8">
-          <p className="text-zinc-400 text-sm uppercase tracking-widest">Dealer&apos;s Choice</p>
+          <p className="text-zinc-400 text-sm uppercase tracking-widest">
+            Dealer&apos;s Choice
+          </p>
           {isDealer && isMyTurn ? (
             <>
               <p className="text-zinc-200 text-base font-semibold text-center">
@@ -595,7 +708,10 @@ export const GameScreen = ({
                 <button
                   className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition-colors shrink-0"
                   onClick={() =>
-                    setMobilePlayerIdx((p) => (p - 1 + game.players.length) % game.players.length)
+                    setMobilePlayerIdx(
+                      (p) =>
+                        (p - 1 + game.players.length) % game.players.length,
+                    )
                   }
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -607,14 +723,18 @@ export const GameScreen = ({
                       onClick={() => setMobilePlayerIdx(i)}
                       className={cn(
                         "w-1.5 h-1.5 rounded-full transition-colors",
-                        i === mobilePlayerIdx ? "bg-blue-400" : "bg-zinc-700 hover:bg-zinc-500",
+                        i === mobilePlayerIdx
+                          ? "bg-blue-400"
+                          : "bg-zinc-700 hover:bg-zinc-500",
                       )}
                     />
                   ))}
                 </div>
                 <button
                   className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition-colors shrink-0"
-                  onClick={() => setMobilePlayerIdx((p) => (p + 1) % game.players.length)}
+                  onClick={() =>
+                    setMobilePlayerIdx((p) => (p + 1) % game.players.length)
+                  }
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -646,31 +766,45 @@ export const GameScreen = ({
             <div className="flex items-center justify-center gap-3 py-4 border-b border-zinc-800 bg-zinc-900/30 shrink-0">
               <div className="flex items-center justify-center gap-3 md:hidden">
                 {game.community_cards.map((card, i) => (
-                  <PlayingCard key={i} rank={card.rank} suit={card.suit} size="tiny" />
+                  <PlayingCard
+                    key={i}
+                    rank={card.rank}
+                    suit={card.suit}
+                    size="tiny"
+                  />
                 ))}
                 {gameMode === GameMode.TexasHoldem &&
-                  Array.from({ length: 5 - game.community_cards.length }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-10 h-14 rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/50 flex items-center justify-center"
-                    >
-                      <span className="text-zinc-700 text-xs">?</span>
-                    </div>
-                  ))}
+                  Array.from({ length: 5 - game.community_cards.length }).map(
+                    (_, i) => (
+                      <div
+                        key={i}
+                        className="w-10 h-14 rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/50 flex items-center justify-center"
+                      >
+                        <span className="text-zinc-700 text-xs">?</span>
+                      </div>
+                    ),
+                  )}
               </div>
               <div className="hidden md:flex items-center justify-center gap-3">
                 {game.community_cards.map((card, i) => (
-                  <PlayingCard key={i} rank={card.rank} suit={card.suit} size="small" />
+                  <PlayingCard
+                    key={i}
+                    rank={card.rank}
+                    suit={card.suit}
+                    size="small"
+                  />
                 ))}
                 {gameMode === GameMode.TexasHoldem &&
-                  Array.from({ length: 5 - game.community_cards.length }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-14 h-20 rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/50 flex items-center justify-center"
-                    >
-                      <span className="text-zinc-700 text-xs">?</span>
-                    </div>
-                  ))}
+                  Array.from({ length: 5 - game.community_cards.length }).map(
+                    (_, i) => (
+                      <div
+                        key={i}
+                        className="w-14 h-20 rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/50 flex items-center justify-center"
+                      >
+                        <span className="text-zinc-700 text-xs">?</span>
+                      </div>
+                    ),
+                  )}
               </div>
             </div>
           )}
@@ -679,7 +813,9 @@ export const GameScreen = ({
             {game ? (
               <div className="flex flex-col items-center">
                 <div className="w-30 h-15 md:w-40 md:h-20 rounded-full border-2 border-green-900 bg-green-950/40 flex flex-col items-center justify-center gap-1">
-                  <span className="text-green-400 font-bold text-2xl">${game.pot}</span>
+                  <span className="text-green-400 font-bold text-2xl">
+                    ${game.pot}
+                  </span>
                 </div>
                 <span className="text-zinc-200 font-bold text-sm text-center mt-2">
                   Current Bet ${game.current_bet}
@@ -710,7 +846,10 @@ export const GameScreen = ({
                           <div key={`m-${originalIdx}`} className="md:hidden">
                             <PlayingCard faceDown size="tiny" />
                           </div>
-                          <div key={`d-${originalIdx}`} className="hidden md:block">
+                          <div
+                            key={`d-${originalIdx}`}
+                            className="hidden md:block"
+                          >
                             <PlayingCard faceDown size="normal" />
                           </div>
                         </>
@@ -724,7 +863,8 @@ export const GameScreen = ({
                             setSelectedDiscards((prev) => {
                               if (prev.includes(originalIdx))
                                 return prev.filter((x) => x !== originalIdx);
-                              if (prev.length < 3) return [...prev, originalIdx];
+                              if (prev.length < 3)
+                                return [...prev, originalIdx];
                               return prev;
                             });
                           }
@@ -741,7 +881,10 @@ export const GameScreen = ({
                             onClick={handleClick}
                           />
                         </div>
-                        <div key={`d-${originalIdx}`} className="hidden md:block">
+                        <div
+                          key={`d-${originalIdx}`}
+                          className="hidden md:block"
+                        >
                           <PlayingCard
                             rank={card.rank}
                             suit={card.suit}
@@ -787,6 +930,8 @@ export const GameScreen = ({
                         className="w-16 md:w-20 px-2 py-1.5 md:px-3 md:py-2 bg-zinc-950 text-zinc-100 text-xs md:text-sm rounded-none border-0 focus-visible:ring-0 h-auto"
                         placeholder="Amount"
                         value={raiseInput}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                         onChange={(e) => setRaiseInput(e.target.value)}
                       />
                       <button
@@ -827,7 +972,9 @@ export const GameScreen = ({
                     className="px-3 py-1.5 md:px-5 md:py-2 bg-green-700 hover:bg-green-600 text-white rounded-lg font-bold text-xs md:text-sm uppercase tracking-wider whitespace-nowrap"
                     onClick={() => {
                       const discardStr =
-                        selectedDiscards.length > 0 ? selectedDiscards.join(",") : "none";
+                        selectedDiscards.length > 0
+                          ? selectedDiscards.join(",")
+                          : "none";
                       send(`DRAW ${discardStr}`);
                       setSelectedDiscards([]);
                     }}
@@ -838,11 +985,12 @@ export const GameScreen = ({
               </div>
             )}
 
-            {!isMyTurn && [...BETTING_PHASES, Phase.Ante, Phase.Draw].includes(phase) && (
-              <p className="text-zinc-600 text-xs uppercase tracking-widest mt-2 md:mb-2 py-1.75">
-                Waiting for other players...
-              </p>
-            )}
+            {!isMyTurn &&
+              [...BETTING_PHASES, Phase.Ante, Phase.Draw].includes(phase) && (
+                <p className="text-zinc-600 text-xs uppercase tracking-widest mt-2 md:mb-2 py-1.75">
+                  Waiting for other players...
+                </p>
+              )}
 
             {!localPlayer && (
               <p className="text-zinc-500 text-lg font-bold uppercase tracking-widest mt-1 flex items-center gap-2">
@@ -851,58 +999,61 @@ export const GameScreen = ({
               </p>
             )}
 
-            {(phase === Phase.RoundOver || phase === Phase.GameOver) && game && (
-              <div className="flex flex-col items-center gap-3 mt-2">
-                {game.winners.length > 0 && (
-                  <p className="text-green-400 font-bold text-sm md:text-lg flex items-center gap-2">
-                    {game.winners[0]}
-                  </p>
-                )}
-                {phase === Phase.RoundOver && localPlayer && (
-                  <>
-                    {!continued && roundOverSecs !== undefined ? (
-                      <div className="flex flex-col items-center gap-1 w-48">
-                        <div className="flex items-center justify-between w-full text-xs">
-                          <span className="text-zinc-400 flex items-center gap-1">
-                            <Timer className="w-3 h-3" />
-                            Respond within
-                          </span>
-                          <span className="text-zinc-200 font-semibold text-base">
-                            {roundOverSecs}s
-                          </span>
+            {(phase === Phase.RoundOver || phase === Phase.GameOver) &&
+              game && (
+                <div className="flex flex-col items-center gap-3 mt-2">
+                  {game.winners.length > 0 && (
+                    <p className="text-green-400 font-bold text-sm md:text-lg flex items-center gap-2">
+                      {game.winners[0]}
+                    </p>
+                  )}
+                  {phase === Phase.RoundOver && localPlayer && (
+                    <>
+                      {!continued && roundOverSecs !== undefined ? (
+                        <div className="flex flex-col items-center gap-1 w-48">
+                          <div className="flex items-center justify-between w-full text-xs">
+                            <span className="text-zinc-400 flex items-center gap-1">
+                              <Timer className="w-3 h-3" />
+                              Respond within
+                            </span>
+                            <span className="text-zinc-200 font-semibold text-base">
+                              {roundOverSecs}s
+                            </span>
+                          </div>
+                          <div className="w-full h-1.5 rounded-full bg-zinc-700 overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-blue-500 transition-all duration-1000"
+                              style={{
+                                width: `${(roundOverSecs / roundOverInitialSecs.current) * 100}%`,
+                              }}
+                            />
+                          </div>
                         </div>
-                        <div className="w-full h-1.5 rounded-full bg-zinc-700 overflow-hidden">
-                          <div
-                            className="h-full rounded-full bg-blue-500 transition-all duration-1000"
-                            style={{
-                              width: `${(roundOverSecs / roundOverInitialSecs.current) * 100}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="h-8.5" />
-                    )}
-                    <button
-                      className={
-                        continued
-                          ? "px-8 py-2 bg-zinc-700 text-zinc-500 rounded-lg font-bold text-sm uppercase tracking-wider cursor-not-allowed"
-                          : "px-8 py-2 bg-green-700 hover:bg-green-600 text-white rounded-lg font-bold text-sm uppercase tracking-wider"
-                      }
-                      disabled={continued}
-                      onClick={() => {
-                        if (!continued) {
-                          setContinued(true);
-                          send("CONTINUE");
+                      ) : (
+                        <div className="h-8.5" />
+                      )}
+                      <button
+                        className={
+                          continued
+                            ? "px-8 py-2 bg-zinc-700 text-zinc-500 rounded-lg font-bold text-sm uppercase tracking-wider cursor-not-allowed"
+                            : "px-8 py-2 bg-green-700 hover:bg-green-600 text-white rounded-lg font-bold text-sm uppercase tracking-wider"
                         }
-                      }}
-                    >
-                      {continued ? "Waiting for other players..." : "Continue to Next Hand"}
-                    </button>
-                  </>
-                )}
-              </div>
-            )}
+                        disabled={continued}
+                        onClick={() => {
+                          if (!continued) {
+                            setContinued(true);
+                            send("CONTINUE");
+                          }
+                        }}
+                      >
+                        {continued
+                          ? "Waiting for other players..."
+                          : "Continue to Next Hand"}
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
           </div>
         </div>
       )}
