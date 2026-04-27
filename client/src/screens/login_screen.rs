@@ -64,14 +64,6 @@ pub fn LoginScreen(
         div {
             class: "flex flex-col items-center justify-center h-screen bg-gray-950 font-sans relative overflow-hidden",
 
-            button {
-                class: "absolute top-4 left-4 px-3 py-1 rounded-md bg-gray-800 border border-gray-700 text-gray-300 hover:bg-gray-700 text-xs",
-                onclick: move |_| {
-                    screen.set(Screen::ConnectScreen);
-                },
-                "Back"
-            }
-
             div { class: "text-center mb-10 relative",
                 h1 { class: "text-4xl font-bold mb-1 text-gray-200 uppercase", "Poker" }
                 p { class: "text-gray-500 text-xs tracking-widest uppercase", "Team Fullhouse" }
