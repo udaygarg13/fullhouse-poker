@@ -1,23 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Screen } from './types';
-import { ConnectScreen } from './components/ConnectScreen';
 import { LoginScreen } from './components/LoginScreen';
 import { MenuScreen } from './components/MenuScreen';
 import { GameScreen } from './components/GameScreen';
 import './index.css';
 
 function App() {
-  const [screen, setScreen] = useState<Screen>('ConnectScreen');
+  const [screen, setScreen] = useState<Screen>('LoginScreen');
   const [username, setUsername] = useState('');
-  const [serverUrl, setServerUrl] = useState<string | null>(null);
+  const serverUrl = import.meta.env.VITE_SERVER_URL || 'ws://127.0.0.1:7878';
   const [serverMessages, setServerMessages] = useState<string[]>([]);
 
   const wsRef = useRef<WebSocket | null>(null);
   const messageQueueRef = useRef<string[]>([]);
 
   useEffect(() => {
-    if (!serverUrl) return;
-
     const ws = new WebSocket(serverUrl);
     wsRef.current = ws;
 
@@ -44,7 +41,7 @@ function App() {
     return () => {
       ws.close();
     };
-  }, [serverUrl]);
+  }, []);
 
   // Stable send function - never changes reference
   const send = useCallback((message: string) => {
@@ -64,14 +61,8 @@ function App() {
     setServerMessages([]);
   }, []);
 
-  const handleConnect = (url: string) => {
-    setServerUrl(url);
-    setScreen('LoginScreen');
-  };
-
   return (
     <>
-      {screen === 'ConnectScreen' && <ConnectScreen onConnect={handleConnect} />}
       {screen === 'LoginScreen' && (
         <LoginScreen
           wsHandle={wsHandle}

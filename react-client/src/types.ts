@@ -87,4 +87,4 @@ export interface GameConfig {
   big_blind: number;
 }
 
-export type Screen = 'ConnectScreen' | 'LoginScreen' | 'MenuScreen' | 'GameScreen';
+export type Screen = 'LoginScreen' | 'MenuScreen' | 'GameScreen';

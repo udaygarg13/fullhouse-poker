@@ -16,7 +16,6 @@ import {
   Loader2,
   AlertCircle,
   CircleCheck,
-  ArrowLeft,
 } from "lucide-react";
 
 interface LoginScreenProps {
@@ -133,15 +132,6 @@ export const LoginScreen = ({
 
   return (
     <div className="relative min-h-svh overflow-y-auto overflow-x-hidden flex items-center justify-center p-4">
-      <Button
-        variant="ghost"
-        size="sm"
-        className="absolute top-4 left-4"
-        onClick={() => setScreen("ConnectScreen")}
-      >
-        <ArrowLeft className="w-4 h-4" />
-      </Button>
-
       <div className="w-full max-w-md animate-slide-up">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-zinc-100 mb-2">Poker</h1>
