@@ -929,9 +929,9 @@ export const GameScreen = ({
                       <Input
                         className="w-16 md:w-20 px-2 py-1.5 md:px-3 md:py-2 bg-zinc-950 text-zinc-100 text-xs md:text-sm rounded-none border-0 focus-visible:ring-0 h-auto"
                         placeholder="Amount"
-                        value={raiseInput}
                         inputMode="numeric"
                         pattern="[0-9]*"
+                        value={raiseInput}
                         onChange={(e) => setRaiseInput(e.target.value)}
                       />
                       <button
